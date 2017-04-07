@@ -2,24 +2,36 @@
   <div class="job">
     <%= link_to("Add a job", new_admin_job_path, class: "btn btn-primary pull-right") %>
   </div>
+  <h2 class="text-center"> Job List </h2>
+  <hr>
   <table class="table table-hover">
     <thead>
       <tr>
         <td>Title</td>
-
+        <td>Description</td>
+        <th>工资下限</td>
+        <th>工资上限</td>
+        <th>联系方式</td>
+        <th>提交时间</td>
       </tr>
     </thead>
     <tbody>
       <% @jobs.each do |job| %>
       <tr>
-        <td><%= link_to(job.title, admin_job_path(job)) %></td>
+        <td>
+          <%= link_to(job.title, admin_job_path(job)) %>
+          <%= render_job_status(job) %>
+        </td>
+        <td><%= job.description %> </td>
+        <td><%= job.wage_lower_bound %> </td>
+        <td><%= job.wage_upper_bound %> </td>
+        <td><%= job.contact_email %> </td>
+        <td><%= job.created_at %></td>
         <td>
           <%= link_to("Edit", edit_admin_job_path(job), class: "btn btn-sm btn-default")%>
           <%= link_to("Delete", admin_job_path(job), class: "btn btn-sm btn-default", method: :delete, data: { confirm: "Are you sure?" } )%>
         </td>
-        <td>
-          <%= job.created_at %>
-        </td>
+
       </tr>
       <% end %>
     </tbody>
